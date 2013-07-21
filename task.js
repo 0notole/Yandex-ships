@@ -7,7 +7,12 @@
  */
 function Vessel(name, position, capacity) {
 	this.name = name;
-	this.position = position;
+	if (position instanceof Planet) {
+		this.position = position.position;
+	}
+	else {
+		this.position = position;
+	}
 	this.capacity = capacity;
 	this.occupied = 0;
 }
@@ -21,7 +26,7 @@ function Vessel(name, position, capacity) {
  * @name Vessel.report
  */
 Vessel.prototype.report = function () {
-	document.write('Ship: "' + this.name + '".<br>Location: ' + this.position + '.<br>Capacity: ' + this.capacity + '.<br>Occupied: ' + this.occupied + '.<br><br>');
+	document.write('Корабль: "' + this.name + '".<br>Местоположение: ' + this.position + '.<br>Занято: ' + this.occupied + ' из ' + this.capacity + '.<br><br>');
 }
 
 /**
@@ -29,7 +34,7 @@ Vessel.prototype.report = function () {
  * @name Vessel.getFreeSpace
  */
 Vessel.prototype.getFreeSpace = function () {
-	document.write(this.capacity - this.occupied);
+	document.write('Свободно: ' + (this.capacity - this.occupied) + '.<br><br>');
 }
 
 /**
@@ -37,7 +42,7 @@ Vessel.prototype.getFreeSpace = function () {
  * @name Vessel.getOccupiedSpace
  */
 Vessel.prototype.getOccupiedSpace = function () {
-	document.write(this.occupied);
+	document.write('Занято: ' + this.occupied + '.<br><br>');
 }
 
 /**
@@ -77,7 +82,7 @@ function Planet(name, position, availableAmountOfCargo) {
  * @name Planet.report
  */
 Planet.prototype.report = function () {
-	document.write('Planet: "' + this.name + '".<br>Location: ' + this.position + '.<br>Available cargo: ' + this.availableAmountOfCargo + '.<br><br>');
+	document.write('Планета: "' + this.name + '".<br>Местоположение: ' + this.position + '.<br>Доступно груза: ' + this.availableAmountOfCargo + '.<br><br>');
 }
 
 /**
@@ -85,7 +90,7 @@ Planet.prototype.report = function () {
  * @name Vessel.getAvailableAmountOfCargo
  */
 Planet.prototype.getAvailableAmountOfCargo = function () {
-	document.write('Available cargo: ' + this.availableAmountOfCargo + '.<br><br>');
+	document.write('Доступно груза: ' + this.availableAmountOfCargo + '.<br><br>');
 }
 
 /**
@@ -124,5 +129,14 @@ Planet.prototype.loadCargoTo = function (vessel, cargoWeight) {
  * @name Vessel.unloadCargoFrom
  */
 Planet.prototype.unloadCargoFrom = function (vessel, cargoWeight) {
-	
+	console.log(this.position == vessel.position);
+	if(this.position == vessel.position)
+		{
+			vessel.occupied -= cargoWeight;
+			this.availableAmountOfCargo += cargoWeight;
+		}
+	else
+		{
+			document.while("Корабль не на планете.");
+		}
 }
