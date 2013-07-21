@@ -111,12 +111,12 @@ Planet.prototype.loadCargoTo = function (vessel, cargoWeight) {
 				}
 			else
 				{
-					document.while("Столько не поместится!");
+					document.write("Столько не поместится!" + '.<br><br>');
 				}
 		}
 	else
 		{
-			document.while("Корабль не на планете.");
+			document.write("Корабль не на планете." + '.<br><br>');
 		}
 }
 
@@ -129,7 +129,6 @@ Planet.prototype.loadCargoTo = function (vessel, cargoWeight) {
  * @name Vessel.unloadCargoFrom
  */
 Planet.prototype.unloadCargoFrom = function (vessel, cargoWeight) {
-	console.log(this.position == vessel.position);
 	if(this.position == vessel.position)
 		{
 			vessel.occupied -= cargoWeight;
@@ -137,6 +136,6 @@ Planet.prototype.unloadCargoFrom = function (vessel, cargoWeight) {
 		}
 	else
 		{
-			document.while("Корабль не на планете.");
+			document.write("Корабль не на планете." + '.<br><br>');
 		}
 }
