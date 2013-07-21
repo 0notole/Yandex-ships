@@ -9,6 +9,7 @@ function Vessel(name, position, capacity) {
 	this.name = name;
 	this.position = position;
 	this.capacity = capacity;
+	this.occupied = 0;
 }
 
 /**
@@ -20,20 +21,24 @@ function Vessel(name, position, capacity) {
  * @name Vessel.report
  */
 Vessel.prototype.report = function () {
-	document.write('Ship: "' + this.name + '". Location: ' + this.position + '. Capacity: ' + this.capacity + '.<br>');
+	document.write('Ship: "' + this.name + '".<br>Location: ' + this.position + '.<br>Capacity: ' + this.capacity + '.<br>Occupied: ' + this.occupied + '.<br><br>');
 }
 
 /**
  * Выводит количество свободного места на корабле.
  * @name Vessel.getFreeSpace
  */
-Vessel.prototype.getFreeSpace = function () {}
+Vessel.prototype.getFreeSpace = function () {
+	document.write(this.capacity - this.occupied);
+}
 
 /**
  * Выводит количество занятого места на корабле.
  * @name Vessel.getOccupiedSpace
  */
-Vessel.prototype.getOccupiedSpace = function () {}
+Vessel.prototype.getOccupiedSpace = function () {
+	document.write(this.occupied);
+}
 
 /**
  * Переносит корабль в указанную точку.
@@ -72,14 +77,16 @@ function Planet(name, position, availableAmountOfCargo) {
  * @name Planet.report
  */
 Planet.prototype.report = function () {
-	
+	document.write('Planet: "' + this.name + '".<br>Location: ' + this.position + '.<br>Available cargo: ' + this.availableAmountOfCargo + '.<br><br>');
 }
 
 /**
  * Возвращает доступное количество груза планеты.
  * @name Vessel.getAvailableAmountOfCargo
  */
-Planet.prototype.getAvailableAmountOfCargo = function () {}
+Planet.prototype.getAvailableAmountOfCargo = function () {
+	document.write('Available cargo: ' + this.availableAmountOfCargo + '.<br><br>');
+}
 
 /**
  * Загружает на корабль заданное количество груза.
@@ -89,7 +96,24 @@ Planet.prototype.getAvailableAmountOfCargo = function () {}
  * @param {Number} cargoWeight Вес загружаемого груза.
  * @name Vessel.loadCargoTo
  */
-Planet.prototype.loadCargoTo = function (vessel, cargoWeight) {}
+Planet.prototype.loadCargoTo = function (vessel, cargoWeight) {
+	if(this.position == vessel.position)
+		{
+			if(cargoWeight <= (vessel.capacity - vessel.occupied))
+				{
+					vessel.occupied += cargoWeight;
+					this.availableAmountOfCargo -= cargoWeight;
+				}
+			else
+				{
+					document.while("Столько не поместится!");
+				}
+		}
+	else
+		{
+			document.while("Корабль не на планете.");
+		}
+}
 
 /**
  * Выгружает с корабля заданное количество груза.
@@ -99,4 +123,6 @@ Planet.prototype.loadCargoTo = function (vessel, cargoWeight) {}
  * @param {Number} cargoWeight Вес выгружаемого груза.
  * @name Vessel.unloadCargoFrom
  */
-Planet.prototype.unloadCargoFrom = function (vessel, cargoWeight) {}
+Planet.prototype.unloadCargoFrom = function (vessel, cargoWeight) {
+	
+}
